@@ -1,0 +1,7 @@
+## train
+
+CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node 2 --master_port 29221 train_elite360d.py --model_name Elite360D_R18 --log_dir ./workdirs --gpu_devices 1 2 --batch_size 4
+
+## eval
+
+CUDA_VISIBLE_DEVICES=0 python eval_elite360d.py --model_name Elite360D_R18 --log_dir ./tmp --load_weights_dir workdirs/Elite360D_R18/models --gpu_devices 1
