@@ -19,7 +19,8 @@ from losses.losses import BerhuLoss
 import losses.loss_gradient as loss_g
 from network.Elite360D import Elite360D_ResNet, Elite360D_effb5, Elite360D_SwinB, Elite360D_SwinT, Elite360D_DilateT
 from data_loader.matterport3d import Matterport3D
-
+from data_loader.stanford2d3d import Stanford2D3D
+from data_loader.strucutred3d import Structured3D
 
 def gradient(x):
     gradient_model = loss_g.Gradient_Net()
@@ -45,12 +46,47 @@ class Trainer_:
 
         if self.settings.local_rank == 0 and not os.path.exists(self.log_path):
             os.makedirs(self.log_path)
-        train_dataset = Matterport3D('/home/ps/data/haoai/dataset/Matterport3D-1K',
-                                     './splitsm3d/matterport3d_train.txt',
-                                     disable_color_augmentation=self.settings.disable_color_augmentation,
-                                     disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
-                                     disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
-                                     is_training=True)
+
+        if self.settings.dataset == 'matterport3d':
+            train_dataset = Matterport3D(self.settings.dataset_root_dir,
+                                         './splitsm3d/matterport3d_train.txt',
+                                         disable_color_augmentation=self.settings.disable_color_augmentation,
+                                         disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
+                                         disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
+                                         is_training=True)
+            val_dataset = Matterport3D(self.settings.dataset_root_dir,
+                                       './splitsm3d/matterport3d_test.txt',
+                                       disable_color_augmentation=self.settings.disable_color_augmentation,
+                                       disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
+                                       disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
+                                       is_training=False)
+        elif self.settings.dataset == 'stanford2d3d':
+            train_dataset = Matterport3D(self.settings.dataset_root_dir,
+                                         './splits2d3d/stanford2d3d_train.txt.txt',
+                                         disable_color_augmentation=self.settings.disable_color_augmentation,
+                                         disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
+                                         disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
+                                         is_training=True)
+            val_dataset = Matterport3D(self.settings.dataset_root_dir,
+                                       './splits2d3d/stanford2d3d_test.txt.txt',
+                                       disable_color_augmentation=self.settings.disable_color_augmentation,
+                                       disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
+                                       disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
+                                       is_training=False)
+        elif self.settings.dataset == 'structued3d':
+            train_dataset = Matterport3D(self.settings.dataset_root_dir,
+                                         './splitss3d/Structured3D_train.txt.txt',
+                                         disable_color_augmentation=self.settings.disable_color_augmentation,
+                                         disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
+                                         disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
+                                         is_training=True)
+            val_dataset = Matterport3D(self.settings.dataset_root_dir,
+                                       './splitss3d/Structured3D_test.txt.txt',
+                                       disable_color_augmentation=self.settings.disable_color_augmentation,
+                                       disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
+                                       disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
+                                       is_training=False)
+
 
         self.train_sampler = None if len(
             self.settings.gpu_devices) < 2 else torch.utils.data.distributed.DistributedSampler(
@@ -63,12 +99,7 @@ class Trainer_:
         num_train_samples = len(train_dataset)
         self.num_total_steps = num_train_samples // self.settings.batch_size * self.settings.num_epochs
 
-        val_dataset = Matterport3D('/home/ps/data/haoai/dataset/Matterport3D-1K',
-                                   './splitsm3d/matterport3d_test.txt',
-                                   disable_color_augmentation=self.settings.disable_color_augmentation,
-                                   disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
-                                   disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
-                                   is_training=False)
+
 
         self.val_sampler = None if len(
             self.settings.gpu_devices) < 2 else torch.utils.data.distributed.DistributedSampler(
