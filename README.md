@@ -54,7 +54,7 @@ Please cite our paper if you find our work useful in your research.
 # Acknowledgements
 
 We thank the authors of the projects below:  
-*[Unifuse](https://github.com/alibaba/UniFuse-Unidirectional-Fusion)*, *[Panoformer](https://github.com/zhijieshen-bjtu/PanoFormer)*, *[SpherePHD](https://github.com/KAIST-vilab/SpherePHD_public, https://github.com/keevin60907/SpherePHD)*, *[HexRUNet](https://github.com/matsuren/HexRUNet_pytorch)*,
+*[Unifuse](https://github.com/alibaba/UniFuse-Unidirectional-Fusion)*, *[Panoformer](https://github.com/zhijieshen-bjtu/PanoFormer)*, *[SpherePHD](https://github.com/KAIST-vilab/SpherePHD_public),*[SpherePHD(pytorch)](https://github.com/keevin60907/SpherePHD)*, *[HexRUNet](https://github.com/matsuren/HexRUNet_pytorch)*,
   *[SphereNet](https://github.com/ChiWeiHsiao/SphereNet-pytorch)*,
 If you find these works useful, please consider citing:
 ```
