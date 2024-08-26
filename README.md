@@ -27,7 +27,7 @@ Please download the preferred datasets,  i.e., [Matterport3D](https://niessner.g
 #### ResNet-18 as ERP branch encoder on Matterport3D
 
 ```
-CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node 2 --master_port 29221 train_elite360d.py --model_name Elite360D_R18 --log_dir ./workdirs --gpu_devices 1 2 --batch_size 4
+CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch --nproc_per_node 2 --master_port 29221 train_elite360d.py --model_name Elite360D_R18 --log_dir ./workdirs --dataset_root_dir $DATASET_ROOT_DIR --gpu_devices 1 2 --batch_size 4
 ```
 
 It is similar for other datasets. 
