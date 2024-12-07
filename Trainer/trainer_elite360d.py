@@ -62,26 +62,26 @@ class Trainer_:
                                        is_training=False)
         elif self.settings.dataset == 'stanford2d3d':
             train_dataset = Matterport3D(self.settings.dataset_root_dir,
-                                         './splits2d3d/stanford2d3d_train.txt.txt',
+                                         './splits2d3d/stanford2d3d_train.txt',
                                          disable_color_augmentation=self.settings.disable_color_augmentation,
                                          disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
                                          disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
                                          is_training=True)
             val_dataset = Matterport3D(self.settings.dataset_root_dir,
-                                       './splits2d3d/stanford2d3d_test.txt.txt',
+                                       './splits2d3d/stanford2d3d_test.txt',
                                        disable_color_augmentation=self.settings.disable_color_augmentation,
                                        disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
                                        disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
                                        is_training=False)
         elif self.settings.dataset == 'structued3d':
             train_dataset = Matterport3D(self.settings.dataset_root_dir,
-                                         './splitss3d/Structured3D_train.txt.txt',
+                                         './splitss3d/Structured3D_train.txt',
                                          disable_color_augmentation=self.settings.disable_color_augmentation,
                                          disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
                                          disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
                                          is_training=True)
             val_dataset = Matterport3D(self.settings.dataset_root_dir,
-                                       './splitss3d/Structured3D_test.txt.txt',
+                                       './splitss3d/Structured3D_test.txt',
                                        disable_color_augmentation=self.settings.disable_color_augmentation,
                                        disable_LR_filp_augmentation=self.settings.disable_LR_filp_augmentation,
                                        disable_yaw_rotation_augmentation=self.settings.disable_yaw_rotation_augmentation,
