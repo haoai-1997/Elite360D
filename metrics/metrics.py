@@ -46,9 +46,10 @@ def compute_depth_metrics(gt, pred, mask=None, median_align=False):
 
     log10 = torch.mean(torch.abs(torch.log10(pred_depth / gt_depth)))
 
-    mae = torch.mean(torch.abs((pred_depth - gt_depth)) / gt_depth)
+    mae = torch.mean(torch.abs(pred_depth - gt_depth))
+    
+    mre = torch.mean(torch.abs(pred_depth - gt_depth) / gt_depth)
 
-    mre = torch.mean(((pred_depth - gt_depth) ** 2) / gt_depth)
     # mae = (gt_depth - pred_depth).abs().mean()
     # mre = ((gt_depth - pred_depth).abs() / gt).mean()
 
